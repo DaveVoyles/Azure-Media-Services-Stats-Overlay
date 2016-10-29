@@ -1,13 +1,17 @@
 # Azure-Media-Services-Stats-Overlay
 Visual representation of important video streaming data in real time.
 
-Author: Dave Voyles, Tech Evangelist, Microsoft
+YouTube offers great statistics on a video if you *right-click -> Stats for nerds*. Now we have the same for Azure Media Services. 
+
+----
+
+**Author:** Dave Voyles, Tech Evangelist, Microsoft
 
 [@DaveVoyles](http://www.twitter.com/DaveVoyles)
 
 [DaveVoyles.com](http://www.davevoyles.com)
 
-YouTube offers great statistics on a video if you *right-click -> Stats for nerds*. Now we have the same for Azure Media Services. 
+
 
 ## Usage
 Instructions on how to include a plugin [can be found here.](https://azure.microsoft.com/en-us/blog/azure-media-player-plugins/)
