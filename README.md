@@ -12,6 +12,15 @@ YouTube offers great statistics on a video if you *right-click -> Stats for nerd
 [DaveVoyles.com](http://www.davevoyles.com)
 
 
+## Youtube Version
+
+![alt tag](https://www.dropbox.com/s/ds4zzih52zvrpfa/Screenshot%202016-10-28%2020.20.12.png?raw=1)
+
+## Plugin Version
+
+![alt tag](https://www.dropbox.com/s/ds4zzih52zvrpfa/Screenshot%202016-10-28%2020.20.12.png?raw=1)
+
+
 
 ## Usage
 Instructions on how to include a plugin [can be found here.](https://azure.microsoft.com/en-us/blog/azure-media-player-plugins/)
