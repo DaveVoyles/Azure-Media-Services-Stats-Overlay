@@ -3,9 +3,6 @@ services: media-services
 platforms: javascript
 author: Dave Voyles
 ---
-# Media Services: Diagnostics Logger plugin for Azure Media Player
-
-
 # Azure-Media-Services-Stats-Overlay
 Visual representation of important video streaming data in real time.
 
