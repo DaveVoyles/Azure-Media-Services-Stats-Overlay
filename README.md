@@ -44,7 +44,9 @@ See example.html for how to enable the plugin
 Instructions on how to include a plugin [can be found here.](https://azure.microsoft.com/en-us/blog/azure-media-player-plugins/)
 
 [Azure Media Services Plugin Overview](https://azure.microsoft.com/en-us/blog/azure-media-player-plugins/)
+
 [Azure Media Player Documentation](https://amp.azure.net/libs/amp/latest/docs/index.html)
+
 [Azure Media Player Samples Page](https://amp.azure.net/libs/amp/latest/docs/SAMPLES.html)
 
 
