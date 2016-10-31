@@ -8,6 +8,8 @@ Visual representation of important video streaming data in real time.
 
 YouTube offers great statistics on a video if you *right-click -> Stats for nerds*. Now we have the same for Azure Media Services. 
 
+
+[Try a live demo at Codepen.io](http://codepen.io/DaveVoyles/pen/yaWWJK)
 ----
 
 **Author:** Dave Voyles, Tech Evangelist, Microsoft
