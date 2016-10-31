@@ -9,7 +9,6 @@ Visual representation of important video streaming data in real time.
 YouTube offers great statistics on a video if you *right-click -> Stats for nerds*. Now we have the same for Azure Media Services. 
 
 
-[Try a live demo at Codepen.io](http://codepen.io/DaveVoyles/pen/yaWWJK)
 ----
 
 **Author:** Dave Voyles, Tech Evangelist, Microsoft
@@ -26,6 +25,19 @@ YouTube offers great statistics on a video if you *right-click -> Stats for nerd
 ## Youtube Version
 
 ![alt tag](https://www.dropbox.com/s/ds4zzih52zvrpfa/Screenshot%202016-10-28%2020.20.12.png?raw=1)
+
+
+
+## Getting Started
+[Try a live demo at Codepen.io](http://codepen.io/DaveVoyles/pen/yaWWJK)
+
+Include the plugin CSS/javascript *after* the AMP script in the `<head>` of your html page:
+
+```<link href="stats-overlay-sample.css" rel="stylesheet">```<br />
+```<script src="stats-overlay-sample.js"></script>```
+
+See example.html for how to enable the plugin 
+
 
 
 ## Usage
