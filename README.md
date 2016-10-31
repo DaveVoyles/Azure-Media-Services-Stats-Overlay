@@ -17,11 +17,11 @@ YouTube offers great statistics on a video if you *right-click -> Stats for nerd
 [DaveVoyles.com](http://www.davevoyles.com)
 
 
-## Youtube Version
-
-![alt tag](https://www.dropbox.com/s/ds4zzih52zvrpfa/Screenshot%202016-10-28%2020.20.12.png?raw=1)
-
 ## Plugin Version
+
+![alt tag](https://www.dropbox.com/s/nb5uugs39jsus3d/AMS-stats-overlay.PNG?raw=1)
+
+## Youtube Version
 
 ![alt tag](https://www.dropbox.com/s/ds4zzih52zvrpfa/Screenshot%202016-10-28%2020.20.12.png?raw=1)
 
