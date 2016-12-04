@@ -33,6 +33,7 @@ YouTube offers great statistics on a video if you *right-click -> Stats for nerd
 
 Include the plugin CSS/javascript *after* the AMP script in the `<head>` of your html page:
 
+```<link href="stats-overlay-sample.css" rel="stylesheet">```<br />
 ```<script src="stats-overlay-sample.js"></script>```
 
 See example.html for how to enable the plugin 
