@@ -53,7 +53,3 @@ See example.html for how to enable the plugin
 
 ## Options
 Options not applicable for this plugin 
-
-## To-Do
-Add a button to AMS player to toggle between overlay visibility
-
