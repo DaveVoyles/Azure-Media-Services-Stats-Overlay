@@ -1,7 +1,7 @@
-
 #overlay {
   position: absolute; 
-  top: 100px; 
+  top: 110px; 
+  left: 20px;
   background-color: rgba(0,0,0,  0.6);
   width: 640px;
   padding: 10px 0;
@@ -15,7 +15,10 @@
   margin: 0px;
   font-size: 16px;
   text-shadow: 2px 2px #000000;
+  font-family: Segoe UI;
+                font-size: 14px;
+                font-style: normal;
+                font-variant: normal;
+                font-weight: 400;
+                line-height: 19.99px;
 }
-
-
-
