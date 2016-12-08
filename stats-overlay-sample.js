@@ -1,4 +1,3 @@
-// TODO: Add a stats display button to the AMS player, adjacent to audio / video feed buttons
 (function (mediaPlayer) {
     "use strict";
 
@@ -88,7 +87,6 @@
        * Sets the text value of the overlay with updated stats from data object.
        */
       function updateOverlayText () {
-        // overlay.innerText = createTextBlock(data);
         overlayText.innerText = createTextBlock(data);
       }
       
