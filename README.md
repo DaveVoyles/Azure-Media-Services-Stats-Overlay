@@ -24,7 +24,7 @@ YouTube offers great statistics on a video if you *right-click -> Stats for nerd
 
 ## Youtube Version
 
-![alt tag](https://www.dropbox.com/s/ds4zzih52zvrpfa/Screenshot%202016-10-28%2020.20.12.png?raw=1)
+![alt tag](https://www.dropbox.com/s/jgmqvtdjyd5xmp2/YouTube-video-overlay-stats.PNG?raw=1)
 
 
 
