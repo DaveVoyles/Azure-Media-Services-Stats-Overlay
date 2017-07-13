@@ -1,150 +1,132 @@
+
+
 (function (mediaPlayer) {
     "use strict";
 
-    mediaPlayer.plugin('contentTitle', function (options) {
-        var player         = this;    
-        var overlay        = document.getElementById('overlay');
-        var overlayBtn     = document.getElementById('overlayBtn');
-        var overlayText    = document.getElementById('overlayText');
-        var bOverlayHidden = "false";
-        var log            = console.log.bind(console); // Shorthand for console.log
-        var p              = player.mediaPlayer;
-        var res            = p.videoWidth          + " x " + p.videoHeight; 
-        var widthHeight    = player.options_.width + " x " + player.options_.height;
-      
-      
-      /**
-       * Make the overlay width 1/2 of the width of the video player
-       */
-      function setOverlayWidth () {
-        var sWidth          = "" + player.options_.width / 2 + "px";
-        overlay.style.width = sWidth;
-      };      
-      setOverlayWidth();
+    mediaPlayer.plugin('titleOverlay', function (options) {
+        var player = this,
+            name = !!options && !!options.name ? options.name : '',
+            opacity = !!options && !!options.opacity ? options.opacity : 1,
+            horizontalPosition = !!options && !!options.horizontalPosition ? options.horizontalPosition : 'left',
+            verticalPosition = !!options && !!options.verticalPosition ? options.verticalPosition : 'top',
+            contentTitleCssClass = 'amp-title-overlay';
 
-      
-      /**
-       * Takes player source URL and determines if it is using http || https.
-       * @return {string} - "http" or "https" 
-       */
-      function getHttpStatus () {
-        var endpoint = p.src;
-        
-        // Head returns 'http' or 'https'
-        // ^  Start of Line
-        // .  Match zero or more
-        // *  Match previous char
-        // \  Literal next char
-        var re                 = /^.*:\/\//;
-        var head               = re.exec( endpoint );      
-        
-       if (head[0] === "https://") {
-          return "https"; 
-        } else { 
-          return "http";
+        var Component = mediaPlayer.getComponent('Component');
+
+        function getLogoHorizontalPosition(logoSpan, horizontalPosition) {
+            var position = 0, // horizontalPosition === 'left' (or invalid value)
+                videoElement = player.el();
+
+            if (horizontalPosition === 'center') {
+                position = (videoElement.clientWidth / 2) - (logoSpan.parentElement.clientWidth / 2);
+            }
+
+            if (horizontalPosition === 'right') {
+                position = videoElement.clientWidth - logoSpan.parentElement.clientWidth - 1;
+            }
+
+            return position;
         }
-        
-      }
-      
 
-      /**
-       * Data object used to store misc values of AMS player.
-       */
-      var data = {
-          "curPlaybackBitrate": "", 
-          "mimeType"          : p.type,
-          "src"               : p.src,
-          "curTime"           : "",
-          "stream type"       : "", // TODO
-          "connSpeed"         : "", // TODO
-          "res"               : "",
-          "dimensions"        : "",
-          "avgBandwidthKbps"  : "",
-          "curDlBitrate"      : "" ,
-          "streamType"        : ""
+        function getLogoVerticalPosition(logoSpan, verticalPosition) {
+            var position = 0, // verticalPosition === 'top' (or invalid value)
+                videoElement = player.el(),
+                controlBarHeight = player.controlBar.el().clientHeight || 31,
+                progressControlHeight = player.controlBar.progressControl.el().clientHeight || 12;
+
+            if (verticalPosition === 'middle') {
+                position = (videoElement.clientHeight / 2) - (logoSpan.parentElement.clientHeight / 2) - (controlBarHeight / 2) - (progressControlHeight / 2);
+            }
+
+            if (verticalPosition === 'bottom') {
+                position = videoElement.clientHeight - logoSpan.parentElement.clientHeight - controlBarHeight - progressControlHeight;
+            }
+
+            return position;
         }
-      
-      
-      /**
-       * Instantiates a formatted block of text based on info returnes from data object.
-       * @param {object} stats - Accepts data object, which is automatically updated every (x) seconds. 
-       * @return {string} - Formatted string which will be set as the innerText of the overlay
-       */
-      function createTextBlock (stats) {        
-        var sData = 
-          "Mime Type: "      + stats.mimeType          + '\n' +
-          "Dimensions: "     + stats.dimensions        + '\n' +
-          "Res: "            + stats.res               + '\n' +  
-          "Dl Bitrate: "     + stats.curDlBitrate      + '\n' +  
-          "Avg Bandwidth: "  + stats.avgBandwidthKbps  + '\n' +
-          "Stream Type: "    + stats.streamType        + '\n' ;
-        
-        return sData;
-      }
-      
-      
-      /**
-       * Sets the text value of the overlay with updated stats from data object.
-       */
-      function updateOverlayText () {
-        overlayText.innerText = createTextBlock(data);
-      }
-      
-      
-      /**
-      * Conver size to bytes
-      * @param {number} bytes - downlaod value
-      * @param {string} decimals - Where should the placeholder be?
-      * @return {number} parseFloat - size changes, depending on initial size of bytes passed in
-      */
-      function formatBytes(bytes,decimals) {
-          if(bytes == 0) return '0 Byte';
-          var k     = 1000;
-          var dm    = decimals + 1 || 3;
-          var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-          var i     = Math.floor(Math.log(bytes) / Math.log(k));
 
-          return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-      }
-      
+        function updateContentTitleMaxSize(logoElement, logoSpan) {
+            // Update image max size acording video size
+            var videoElement = player.el();
+            if ((videoElement.clientHeight < logoSpan.parentElement.clientHeight) || (videoElement.clientWidth < logoSpan.parentElement.clientWidth)) {
+                logoSpan.style.maxHeight = videoElement.clientHeight + 'px';
+                logoSpan.style.maxWidth = videoElement.clientWidth + 'px';
+            } else {
+                logoSpan.style.maxHeight = '100%';
+                logoSpan.style.maxWidth = '100%';
+            }
+        }
 
-      /**
-       * Updates data object every (x) seconds, which the stats overlay text object then reads 
-       */
-      function setValuesForStatsOverlay () {       
-        setInterval(function () { data.curTime            = p.currentTime},                         1000);
-        setInterval(function () { data.curDlBitrate       = formatBytes(p.currentDownloadBitrate)}, 1000);   
-        setInterval(function () { data.avgBandwidthKbps   = formatBytes(p.videoBufferData._bandwidthTracker.averageBandwidthInKbps)}, 1000);
-        setInterval(function () { data.dimensions         =  player.options_.width + " x " + player.options_.height                },  1000); 
-        setInterval(function () { data.curDlBitrate       = formatBytes(p.currentDownloadBitrate)}, 1000);
-        setInterval(function () { data.curPlaybackBitrate = formatBytes(p.currentPlaybackBitrate)}, 1000);
-        setInterval(function () { data.res                =  p.videoWidth + " x " + p.videoHeight}, 1000);            
-        setTimeout(function  () { data.streamType         = getHttpStatus()                      }, 1000);        
-        setInterval(function () { updateOverlayText()                                            }, 1000); 
-        // retrieve values for DEBUGGING
-         console.log(player);
-        // console.log(player.mediaPlayer);          
-      }
-      
-      
-      /**
-       * Toggles visibiltiy of overlay. Ideally this would be embedded as a btn in the AMS player.
-       */
-      function toggleOverlayVisibility()  {		
-        var bVisibility           = (bOverlayHidden  === "false") ? "hidden" : "visible";	        
-        overlay.style.visibility  = bVisibility;
-        bOverlayHidden            = (bOverlayHidden  === "false") ? "true"   : "false";		
-      };
+        function updateContentTitlePosition(logoElement, logoSpan) {
+            // Update DIV based on image values (now calculated because it was added to the DOM)
+            logoElement.style.left = getLogoHorizontalPosition(logoSpan, horizontalPosition) + 'px';
+            logoElement.style.top = getLogoVerticalPosition(logoSpan, verticalPosition) + 'px';
+        }
 
+        function updateContentTitle() {
+            // Fix to Logo position when the video returns from full screen
+            player.contentTitle.container.style.left = '0';
+            player.contentTitle.container.style.top = '0';
 
-        /**
-         * Main function -- Entry point of this application
-         */
+            updateContentTitleMaxSize(player.contentTitle.container, player.contentTitle.span);
+            updateContentTitlePosition(player.contentTitle.container, player.contentTitle.span);
+        }
+
+        function showContentTitle() {
+            updateContentTitle();
+
+            player.contentTitle.removeClass("vjs-user-inactive");
+            player.contentTitle.addClass("vjs-user-active");
+        }
+
+        function hideContentTitle() {
+            player.contentTitle.removeClass("vjs-user-active");
+            player.contentTitle.addClass("vjs-user-inactive");
+        }
+
+        // Create Logo
+        mediaPlayer.ContentTitle = amp.extend(Component, {
+            init: function (player, options) {
+                Component.call(this, player, options);
+            }
+        });
+
+        mediaPlayer.ContentTitle.prototype.createEl = function () {
+            var el = Component.prototype.createEl.call(this, 'div', { className: contentTitleCssClass });
+            el.style.opacity = opacity;
+            el.onload = function() { 
+                updateContentTitle(); 
+            };
+            
+            var span = videojs.createEl('span', {});
+            span.innerText = name;
+            span.onload = function() { 
+                updateContentTitle(); 
+            };
+            
+            el.appendChild(span);
+
+            this.container = el;
+            this.span = span;
+
+            return el;
+        };
+
+        // Main function
         player.ready(function () {
-          log("player ready");
-          player.on('play', setValuesForStatsOverlay);    
-          overlay.onclick    = toggleOverlayVisibility;
-          overlayBtn.onclick = toggleOverlayVisibility;     
+            var contentTitle = new mediaPlayer.ContentTitle(player);
+
+            player.contentTitle = player.addChild(contentTitle);
+            
+            player.on(mediaPlayer.eventName.fullscreenchange, updateContentTitle);
+            player.on("resize", updateContentTitle);
+            
+            player.on("useractive", showContentTitle);
+            player.on("userinactive", hideContentTitle);
+                        
+            updateContentTitle();
+            
+            setTimeout(updateContentTitle, 0);
         });
     });
 }(window.amp));
