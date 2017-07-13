@@ -1,24 +1,46 @@
-#overlay {
-  position: absolute; 
-  top: 110px; 
-  left: 20px;
-  background-color: rgba(0,0,0,  0.6);
-  width: 640px;
-  padding: 10px 0;
-  z-index: 2147483647;
+/*
+    The MIT License
+    
+    Copyright (c) 2016 Southworks
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files 
+    (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, 
+    publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do 
+    so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+    FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
+    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+.amp-default-skin .amp-title-overlay {
+    position: absolute;
+    overflow: hidden;
+    z-index: 5;
+    font-family: 'Segoe UI';
+    font-weight: lighter;
+    font-size: 20px;
+    margin: 30px;
 }
 
-#overlayText {
-  color: #FFF; 
-  text-align: left;
-  padding: 0 16px;
-  margin: 0px;
-  font-size: 16px;
-  text-shadow: 2px 2px #000000;
-  font-family: Segoe UI;
-  font-size: 14px;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: 400;
-  line-height: 19.99px;
+    .amp-default-skin .amp-title-overlay span {
+        text-shadow: rgba(0, 0, 0, 0.8) 1px 1px 4px;
+    }
+
+.amp-default-skin.vjs-has-started.vjs-user-inactive.vjs-playing .amp-title-overlay {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: visibility 1s,opacity 1s;
+    -moz-transition: visibility 1s,opacity 1s;
+    -o-transition: visibility 1s,opacity 1s;
+    transition: visibility 1s,opacity 1s;
+}
+
+.vjs-audio.amp-default-skin.vjs-has-started.vjs-user-inactive.vjs-playing .amp-title-overlay {
+    opacity: 1;
+    visibility: visible;
 }
